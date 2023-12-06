@@ -61,7 +61,7 @@ class MultiHeadSelfAttention(nn.Module):
                                                               deterministic=not train,
                                                               dtype=self.dtype,
                                                               bias=bias)
-
+  
     # return weighted sum over values for each query position
     out_per_head = jnp.einsum('...hqk,...khd->...qhd', attn_weights, v)
     out_concat = jnp.reshape(out_per_head, [*out_per_head.shape[:-2], self.features])
@@ -73,3 +73,4 @@ class MultiHeadSelfAttention(nn.Module):
                    use_bias=self.use_bias)(out_concat)
 
     return out
+
